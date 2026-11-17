@@ -1,0 +1,188 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Already configured. Only a single configuration is possible.",
+      "no_lorawan_connections": "Please first configure your LoRaWAN backend and make sure it is connected, then try again.",
+      "no_supported_devices": "No supported devices were found on your LoRaWAN connections.",
+      "single_instance_allowed": "Already configured. Only a single configuration is possible."
+    },
+    "step": {
+      "confirm": {
+        "description": "Set up Dragino devices from your LoRaWAN connections."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "alarm": {
+        "name": "Alarm"
+      },
+      "di1": {
+        "name": "Digital input 1"
+      },
+      "di2": {
+        "name": "Digital input 2"
+      },
+      "do1": {
+        "name": "Digital output 1"
+      },
+      "do2": {
+        "name": "Digital output 2"
+      },
+      "interrupt_level": {
+        "name": "Interrupt pin level"
+      },
+      "pa4_open": {
+        "name": "Contact PA4"
+      },
+      "pa8_open": {
+        "name": "Contact PA8"
+      },
+      "pb15_open": {
+        "name": "Contact PB15"
+      },
+      "ro1": {
+        "name": "Relay 1"
+      },
+      "ro2": {
+        "name": "Relay 2"
+      },
+      "temperature_high": {
+        "name": "High temperature alarm"
+      },
+      "temperature_low": {
+        "name": "Low temperature alarm"
+      }
+    },
+    "button": {
+      "request_device_status": {
+        "name": "Request device status"
+      },
+      "request_measurement": {
+        "name": "Request measurement"
+      }
+    },
+    "number": {
+      "requested_reporting_interval": {
+        "name": "Requested reporting interval"
+      }
+    },
+    "sensor": {
+      "aci1": {
+        "name": "Analog current input 1"
+      },
+      "aci2": {
+        "name": "Analog current input 2"
+      },
+      "adc_voltage": {
+        "name": "ADC voltage"
+      },
+      "avi1": {
+        "name": "Analog voltage input 1"
+      },
+      "avi2": {
+        "name": "Analog voltage input 2"
+      },
+      "battery_voltage": {
+        "name": "Battery voltage"
+      },
+      "count": {
+        "name": "Counter"
+      },
+      "count1": {
+        "name": "Counter 1"
+      },
+      "count2": {
+        "name": "Counter 2"
+      },
+      "cpl03lb_work_mode": {
+        "name": "Work mode",
+        "state": {
+          "cpl01": "Single contact (CPL01)",
+          "cpl03": "Three contacts (CPL03-LB)"
+        }
+      },
+      "door_open_count": {
+        "name": "Door open count"
+      },
+      "external_humidity": {
+        "name": "External humidity"
+      },
+      "external_temperature": {
+        "name": "External temperature"
+      },
+      "firmware_version": {
+        "name": "Firmware version"
+      },
+      "last_door_open_duration": {
+        "name": "Last door open duration"
+      },
+      "last_duration": {
+        "name": "Last open duration"
+      },
+      "last_water_leak_duration": {
+        "name": "Last water leak duration"
+      },
+      "lt22222l_work_mode": {
+        "name": "Work mode",
+        "state": {
+          "1aci_2avi_1count": "1 ACI + 2 AVI + 1 count",
+          "2aci_1count": "2 ACI + 1 count",
+          "2aci_2avi": "2 ACI + 2 AVI",
+          "count_1": "Count mode 1",
+          "count_2": "Count mode 2",
+          "trigger": "Trigger mode"
+        }
+      },
+      "pa4_count": {
+        "name": "Contact PA4 pulse count"
+      },
+      "pa8_count": {
+        "name": "Contact PA8 pulse count"
+      },
+      "pb15_count": {
+        "name": "Contact PB15 pulse count"
+      },
+      "pulse_count": {
+        "name": "Pulse count"
+      },
+      "snr": {
+        "name": "Signal-to-noise ratio"
+      },
+      "water_leak_count": {
+        "name": "Water leak count"
+      }
+    },
+    "switch": {
+      "do1": {
+        "name": "Digital output 1 control"
+      },
+      "do2": {
+        "name": "Digital output 2 control"
+      },
+      "ro1": {
+        "name": "Relay 1 control"
+      },
+      "ro2": {
+        "name": "Relay 2 control"
+      }
+    }
+  },
+  "exceptions": {
+    "device_unavailable": {
+      "message": "The LoRaWAN device is unavailable."
+    },
+    "downlink_failed": {
+      "message": "Could not queue the downlink: {error}"
+    },
+    "downlink_timeout": {
+      "message": "The network server did not confirm queuing the downlink in time. It may already be queued; check the server before retrying."
+    },
+    "invalid_interval": {
+      "message": "The reporting interval must be a whole number of seconds between {min} and {max}."
+    },
+    "status_requires_firmware": {
+      "message": "Requesting device status requires LHT65N firmware {version} or newer."
+    }
+  }
+}

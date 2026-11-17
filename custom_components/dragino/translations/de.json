@@ -1,0 +1,188 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Bereits konfiguriert. Es ist nur eine einzelne Konfiguration möglich.",
+      "no_lorawan_connections": "Bitte richte zuerst dein LoRaWAN-Backend ein und stelle sicher, dass es verbunden ist. Versuche es dann erneut.",
+      "no_supported_devices": "In deinen LoRaWAN-Verbindungen wurden keine unterstützten Geräte gefunden.",
+      "single_instance_allowed": "Bereits konfiguriert. Es ist nur eine einzelne Konfiguration möglich."
+    },
+    "step": {
+      "confirm": {
+        "description": "Richte Dragino-Geräte aus deinen LoRaWAN-Verbindungen ein."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "alarm": {
+        "name": "Alarm"
+      },
+      "di1": {
+        "name": "Digitaleingang 1"
+      },
+      "di2": {
+        "name": "Digitaleingang 2"
+      },
+      "do1": {
+        "name": "Digitalausgang 1"
+      },
+      "do2": {
+        "name": "Digitalausgang 2"
+      },
+      "interrupt_level": {
+        "name": "Pegel des Interrupt-Pins"
+      },
+      "pa4_open": {
+        "name": "Kontakt PA4"
+      },
+      "pa8_open": {
+        "name": "Kontakt PA8"
+      },
+      "pb15_open": {
+        "name": "Kontakt PB15"
+      },
+      "ro1": {
+        "name": "Relais 1"
+      },
+      "ro2": {
+        "name": "Relais 2"
+      },
+      "temperature_high": {
+        "name": "Alarm hohe Temperatur"
+      },
+      "temperature_low": {
+        "name": "Alarm niedrige Temperatur"
+      }
+    },
+    "button": {
+      "request_device_status": {
+        "name": "Gerätestatus anfordern"
+      },
+      "request_measurement": {
+        "name": "Messung anfordern"
+      }
+    },
+    "number": {
+      "requested_reporting_interval": {
+        "name": "Angefordertes Sendeintervall"
+      }
+    },
+    "sensor": {
+      "aci1": {
+        "name": "Analoger Stromeingang 1"
+      },
+      "aci2": {
+        "name": "Analoger Stromeingang 2"
+      },
+      "adc_voltage": {
+        "name": "ADC-Spannung"
+      },
+      "avi1": {
+        "name": "Analoger Spannungseingang 1"
+      },
+      "avi2": {
+        "name": "Analoger Spannungseingang 2"
+      },
+      "battery_voltage": {
+        "name": "Batteriespannung"
+      },
+      "count": {
+        "name": "Zähler"
+      },
+      "count1": {
+        "name": "Zähler 1"
+      },
+      "count2": {
+        "name": "Zähler 2"
+      },
+      "cpl03lb_work_mode": {
+        "name": "Betriebsmodus",
+        "state": {
+          "cpl01": "Ein Kontakt (CPL01)",
+          "cpl03": "Drei Kontakte (CPL03-LB)"
+        }
+      },
+      "door_open_count": {
+        "name": "Anzahl Türöffnungen"
+      },
+      "external_humidity": {
+        "name": "Externe Luftfeuchtigkeit"
+      },
+      "external_temperature": {
+        "name": "Externe Temperatur"
+      },
+      "firmware_version": {
+        "name": "Firmware-Version"
+      },
+      "last_door_open_duration": {
+        "name": "Dauer der letzten Türöffnung"
+      },
+      "last_duration": {
+        "name": "Dauer der letzten Öffnung"
+      },
+      "last_water_leak_duration": {
+        "name": "Dauer des letzten Wasseraustritts"
+      },
+      "lt22222l_work_mode": {
+        "name": "Betriebsmodus",
+        "state": {
+          "1aci_2avi_1count": "1 ACI + 2 AVI + 1 Zähler",
+          "2aci_1count": "2 ACI + 1 Zähler",
+          "2aci_2avi": "2 ACI + 2 AVI",
+          "count_1": "Zählmodus 1",
+          "count_2": "Zählmodus 2",
+          "trigger": "Auslösemodus"
+        }
+      },
+      "pa4_count": {
+        "name": "Impulszähler Kontakt PA4"
+      },
+      "pa8_count": {
+        "name": "Impulszähler Kontakt PA8"
+      },
+      "pb15_count": {
+        "name": "Impulszähler Kontakt PB15"
+      },
+      "pulse_count": {
+        "name": "Impulszähler"
+      },
+      "snr": {
+        "name": "Signal-Rausch-Verhältnis"
+      },
+      "water_leak_count": {
+        "name": "Anzahl Wasseraustritte"
+      }
+    },
+    "switch": {
+      "do1": {
+        "name": "Digitalausgang 1 steuern"
+      },
+      "do2": {
+        "name": "Digitalausgang 2 steuern"
+      },
+      "ro1": {
+        "name": "Relais 1 steuern"
+      },
+      "ro2": {
+        "name": "Relais 2 steuern"
+      }
+    }
+  },
+  "exceptions": {
+    "device_unavailable": {
+      "message": "Das LoRaWAN-Gerät ist nicht verfügbar."
+    },
+    "downlink_failed": {
+      "message": "Der Downlink konnte nicht eingereiht werden: {error}"
+    },
+    "downlink_timeout": {
+      "message": "Der Netzwerkserver hat das Einreihen des Downlinks nicht rechtzeitig bestätigt. Er könnte bereits eingereiht sein; prüfe den Server vor einem erneuten Versuch."
+    },
+    "invalid_interval": {
+      "message": "Das Sendeintervall muss eine ganze Zahl zwischen {min} und {max} Sekunden sein."
+    },
+    "status_requires_firmware": {
+      "message": "Die Statusabfrage erfordert LHT65N-Firmware {version} oder neuer."
+    }
+  }
+}

@@ -1,0 +1,78 @@
+name: Dependabot patch auto-merge
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions: {}
+
+jobs:
+  patch:
+    if: >-
+      github.repository == 'tomfrenzel/ha-dragino' &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !github.event.pull_request.draft
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # Never check out or execute PR code in this privileged workflow.
+      - uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3
+        id: metadata
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Leave non-patch updates for manual approval and merging
+        if: steps.metadata.outputs.update-type != 'version-update:semver-patch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          auto_merge=$(gh pr view "$PR_URL" --json autoMergeRequest --jq '.autoMergeRequest != null')
+          if [ "$auto_merge" = true ]; then
+            gh pr merge "$PR_URL" --disable-auto
+          fi
+      - name: Require protected main before enabling auto-merge
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          policy=$(gh api graphql \
+            -f owner="${GITHUB_REPOSITORY%/*}" -f name="${GITHUB_REPOSITORY#*/}" \
+            -f query='query($owner:String!,$name:String!) {
+              repository(owner:$owner,name:$name) {
+                ref(qualifiedName:"refs/heads/main") {
+                  branchProtectionRule {
+                    requiresStatusChecks requiresStrictStatusChecks
+                    requiredStatusCheckContexts requiresApprovingReviews
+                    requiredApprovingReviewCount dismissesStaleReviews isAdminEnforced
+                  }
+                }
+              }
+            }')
+          echo "$policy" | jq -e '
+            .data.repository.ref.branchProtectionRule |
+            .requiresStatusChecks and .requiresStrictStatusChecks and
+            .requiresApprovingReviews and .requiredApprovingReviewCount >= 1 and
+            .dismissesStaleReviews and .isAdminEnforced and
+            ((["CI", "HACS", "Hassfest"] - .requiredStatusCheckContexts) | length == 0)
+          ' || {
+            echo "::error::Configure the main branch protection described in .github/CONTRIBUTING.md first."
+            exit 1
+          }
+      - name: Approve this patch commit and enable auto-merge
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          current_sha=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq .head.sha)
+          test "$current_sha" = "$HEAD_SHA"
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/reviews" \
+            --method POST -f event=APPROVE -f commit_id="$HEAD_SHA"
+          gh pr merge "$PR_URL" --auto --squash --match-head-commit "$HEAD_SHA"
